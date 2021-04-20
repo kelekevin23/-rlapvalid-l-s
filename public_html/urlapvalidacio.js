@@ -37,9 +37,9 @@ function validalas() {
     var telefonszam = ID("tsz").value;
     var szamok = /[+]{1}[0-9]{11}/;
     
-    var http = /[http://]/;
-    var web = /[.hu]/;
+    var http = /[http:][a-z]{1,}[.hu]/;
     var weboldal = ID("web").value;
+    
     if (!szuro.test(nevMezo)) {
         hiba += "Nagybetűvel kezdődjön! és legalább 3 karakterből álljon a név!<br>";
         ID("nev").style.border = "2px solid red";
@@ -47,7 +47,7 @@ function validalas() {
         ID("nev").style.border = "none";
         adat += "Név: "+nevMezo+"<br>";
     }
-    
+    //@
     for (var i = 0; i < email.length; i++) {
         if (email[i] === "@"){
             van = true;
@@ -58,6 +58,7 @@ function validalas() {
     }else{
         hiba += "Az Email-címben nincsen @!<br>";
     }
+    //email
     if (email === email2  && email !== ""){
         adat += "Mind a két Email-cím helyes!"+ email +"<br>";
     }else{
@@ -70,14 +71,10 @@ function validalas() {
         adat += "Telefonszám: "+telefonszam+"<br>";
     }
     
-    var webjo = false;
-    if (http.test(weboldal) && web.test(weboldal)) {
-        webjo = true;
-    }
-    if (webjo === true){
-        adat += "Weboldal: "+weboldal+"<br>";
-    }else{
+    if (!http.test(weboldal)) {
         hiba += "A weboldal helytelen!<br>";
+    }else{
+        adat += "Weboldal: "+weboldal+"<br>";
     }
     
     $("aside section:nth-child(1) p")[0].innerHTML = hiba;

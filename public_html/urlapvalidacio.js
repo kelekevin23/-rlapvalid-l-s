@@ -37,9 +37,10 @@ function validalas() {
     var telefonszam = ID("tsz").value;
     var szamok = /[+]{1}[0-9]{11}/;
     
-    var http = /[http:][a-z]{1,}[.hu]/;
+    var http = /[http:\\][a-z]{1,}[.hu]/;
     var weboldal = ID("web").value;
     
+    //nev
     if (!szuro.test(nevMezo)) {
         hiba += "Nagybetűvel kezdődjön! és legalább 3 karakterből álljon a név!<br>";
         ID("nev").style.border = "2px solid red";
@@ -47,23 +48,21 @@ function validalas() {
         ID("nev").style.border = "none";
         adat += "Név: "+nevMezo+"<br>";
     }
-    //@
+    
+    //@, email
     for (var i = 0; i < email.length; i++) {
-        if (email[i] === "@"){
+        if (email[0] !== "@" && email[i] === "@"){
             van = true;
         }
     }
     if (van === true){
         adat += "Email: "+email+"<br>";
-    }else{
-        hiba += "Az Email-címben nincsen @!<br>";
-    }
-    //email
-    if (email === email2  && email !== ""){
         adat += "Mind a két Email-cím helyes!"+ email +"<br>";
     }else{
+        hiba += "Az Email-címben nincsen @!<br>";
         hiba += "Az Email-címek nem egyeznek!<br>";
     }
+
     
     if (!szamok.test(telefonszam)) {
         hiba += "A telefonszámban nem lehet betű és 11 számjegyűnek kell lennie<br>";
